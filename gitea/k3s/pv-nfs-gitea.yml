@@ -17,5 +17,5 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /volume2/nfs/gitea
+    path: /volume2/NFS/gitea
     server: 192.168.2.201
