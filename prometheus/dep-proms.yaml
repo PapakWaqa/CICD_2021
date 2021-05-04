@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proms
+  labels:
+    app: proms
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: proms
+  template:
+    metadata:
+      labels:
+        app: proms
+    spec:
+      containers:
+        - name: proms
+          image: prom/prometheus:v2.26.0
+          volumeMounts:
+            - name: proms-yaml
+              mountPath: /etc/prometheus/prometheus.yml
+              subPath: prometheus.yml
+          ports:
+            - containerPort: 9090
+              name: proms-9090
+      volumes:
+        - name: proms-yaml
+          persistentVolumeClaim:
+            claimName: proms-pvc-nfs
