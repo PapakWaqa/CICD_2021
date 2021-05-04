@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  externalIPs:
+  - 172.29.0.12
+  ports:
+  - name: jenkins-web
+    port: 80
+    targetPort: 8080
+  selector:
+    app: jenkins
