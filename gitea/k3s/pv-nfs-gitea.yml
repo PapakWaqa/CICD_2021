@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitea-pv-nfs
+  namespace: gitea
+  labels:
+    app: gitea
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: gitea-nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /volume2/nfs/gitea
+    server: 192.168.2.201

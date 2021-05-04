@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitea-pv
+  namespace: gitea
+  labels:
+    app: gitea
+spec:
+  storageClassName: gitea
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 3Gi
+  local:
+    path: /data/gitea
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - wka03

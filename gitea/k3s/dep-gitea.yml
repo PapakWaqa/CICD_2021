@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  namespace: gitea
+  labels:
+    app: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      name: gitea
+      labels:
+        app: gitea
+    spec:
+      containers:
+      - name: gitea
+        image: gitea/gitea:1.14
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: gitea-pvc-nfs
+            mountPath: /data
+        ports:
+          - containerPort: 30022
+            name: ssh
+            protocol: TCP
+          - containerPort: 3000
+            name: http
+            protocol: TCP
+      restartPolicy: Always
+      volumes:
+      - name: gitea-pvc-nfs
+        persistentVolumeClaim:
+          claimName: gitea-pvc-nfs
