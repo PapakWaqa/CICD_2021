@@ -23,6 +23,8 @@ spec:
           volumeMounts:
             - name: ldif-bootstrap
               mountPath: /container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
+              subPath: 50-bootstrap.ldif
+
           ports:
             - containerPort: 389
               name: openldap
